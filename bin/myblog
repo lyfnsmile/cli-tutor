@@ -2,11 +2,11 @@
 
 var program = require('commander');
 var colors = require('colors');
-var create = require('../lib/cmd_create');//create file
-var preview = require('../lib/cmd_preview');//preview file
+var create = require('../lib/cmd_create'); //create file
+var preview = require('../lib/cmd_preview'); //preview file
 
 //命名版本号
-program.version('0.0.1');
+program.version('0.1.0');
 
 //help命令
 program
@@ -16,14 +16,26 @@ program
         program.outputHelp();
     });
 
+//初始化配置项
+program
+    .command('init')
+    .alias('i')
+    .option('-u, --user <username>', 'initial a new user')
+    .description('初始化相关配置参数')
+    .action(function(program) {
+        console.log('create %S'.green, program.user)
+    })
+
 //create命令
 program
     .command('create [filename]')
     .option('-s, --sources <sources>', 'create a new blog artical')
+    .option('-u, --user <username>', 'initial a new user')
+    .option('-t --tags,  <tags>', 'attach tags to artical')
     .description('创建一个新的博客目录')
-    .action(function(filename,program) {
-        console.log('create %S'.green, filename.green,program.sources)
-        create(filename,program.sources)
+    .action(function(filename, program) {
+        console.log('create %S'.green, filename.green, program.sources, program.user,program.tags)
+        create(filename, program.sources, program.user,program.tags)
     })
 
 //preview命令dfg
