@@ -1,42 +1,46 @@
 #!/usr/bin/env node
 
-var program=require('commander');
+var program = require('commander');
 var colors = require('colors');
-var preview=require('../lib/cmd_preview');
+var create = require('../lib/cmd_create');//create file
+var preview = require('../lib/cmd_preview');//preview file
 
 //命名版本号
 program.version('0.0.1');
 
 //help命令
 program
-	.command('help')
-	.description('显示使用帮助'.green)
-	.action(function(){
-		program.outputHelp();
-	});
+    .command('help')
+    .description('显示使用帮助'.green)
+    .action(function() {
+        program.outputHelp();
+    });
 
 //create命令
 program
-	.command('create [dir]')
-	.description('创建一个新的博客目录')
-	.action(function(dir){
-		console.log('create %S'.green ,dir.green )
-	})
+    .command('create [filename]')
+    .option('-s, --sources <sources>', 'create a new blog artical')
+    .description('创建一个新的博客目录')
+    .action(function(filename,program) {
+        console.log('create %S'.green, filename.green,program.sources)
+        create(filename,program.sources)
+    })
 
-//preview命令
+//preview命令dfg
 program
-	.command('preview [dir]')
-	.description('实时预览'.green)
-	.action(preview)
+    .command('preview [dir]')
+    .option('-p, --port <port>', 'setting server port')
+    .description('本地实时预览实时预览'.green)
+    .action(preview)
 
 //build命令
 program
-	.command('build [dir]')
-	.description('生成整站静态HTML'.green)
-	.option('-o, --output <dir>','生成的静态HTML存放目录')
-	.action(function(dir,options){
-		console.log('create %S, output $S'.green,dir, options.output.green)
-	})
+    .command('build [dir]')
+    .description('生成整站静态HTML'.green)
+    .option('-o, --output <dir>', '生成的静态HTML存放目录')
+    .action(function(dir, options) {
+        console.log('create %S, output %S'.green, dir, options.output)
+    })
 
 
 //开始解析命令

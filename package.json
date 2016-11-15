@@ -16,11 +16,14 @@
     "myblog": "./bin/myblog"
   },
   "dependencies": {
+    "co": "^4.6.0",
+    "co-prompt": "^1.0.0",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
     "express": "^4.14.0",
     "markdown-it": "^7.0.0",
     "morgan": "^1.7.0",
+    "progress": "^1.1.8",
     "serve-favicon": "^2.3.0"
   }
 }
